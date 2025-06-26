@@ -2,17 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interactive Skyscraper Grid</title>
+  <title>Interactive Parametric Skyscrapers</title>
   <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
   </style>
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/loaders/FontLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/geometries/TextGeometry.js"></script>
+  <!-- Three.js & GUI -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155/examples/js/controls/OrbitControls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
+
+  <!-- Your Script -->
   <script src="script.js"></script>
+
+  <!-- Instructions Panel -->
+  <div id="instructions" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.85);
+    padding: 12px;
+    font-family: sans-serif;
+    font-size: 13px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    max-width: 230px;
+    z-index: 100;">
+    <strong>🧭 Controls Guide</strong><br><br>
+    🖱️ Left-click + drag: Rotate view<br>
+    🔍 Scroll: Zoom in/out<br>
+    🖱️ Right-click + drag: Pan<br>
+    📦 Click building: Edit height, color, texture<br>
+    🎨 Use panel at left to customize
+  </div>
 </body>
 </html>
