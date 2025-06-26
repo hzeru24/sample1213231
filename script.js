@@ -1,7 +1,18 @@
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+scene.background = new THREE.Color(0xeeeeee);
+
+const camera = new THREE.PerspectiveCamera(
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+camera.position.set(30, 40, 50);
+camera.lookAt(scene.position);
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xeeeeee); // light background
 document.body.appendChild(renderer.domElement);
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -24,6 +35,7 @@ const buildingParams = {
   color: '#fb06ff',
   textureURL: ''
 };
+
 let heightCtrl = null;
 let colorCtrl = null;
 let textureCtrl = null;
@@ -60,16 +72,13 @@ for (let i = 0; i < blockSize; i++) {
   }
 }
 
-camera.position.set(30, 40, 50);
-camera.lookAt(scene.position);
-
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let selectedBuilding = null;
 
 window.addEventListener('click', e => {
-  mouse.x = (e.clientX / innerWidth) * 2 - 1;
-  mouse.y = -(e.clientY / innerHeight) * 2 + 1;
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
   const hits = raycaster.intersectObjects(buildings);
 
@@ -129,10 +138,11 @@ function animate() {
   controls.update();
   renderer.render(scene, camera);
 }
+
 animate();
 
 window.addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
+  camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 });
