@@ -4,6 +4,10 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(10, 20, 10);
 scene.add(light);
@@ -30,7 +34,7 @@ const blockSize = 5;
 const spacing = 10;
 const textureLoader = new THREE.TextureLoader();
 
-const windowTexture = textureLoader.load('https://threejs.org/examples/textures/brick_diffuse.jpg'); // replace with any tileable window image
+const windowTexture = textureLoader.load('https://threejs.org/examples/textures/brick_diffuse.jpg');
 windowTexture.wrapS = windowTexture.wrapT = THREE.RepeatWrapping;
 windowTexture.repeat.set(1, 4);
 
@@ -92,8 +96,8 @@ window.addEventListener('click', e => {
     colorCtrl = gui.addColor(buildingParams, 'color').onChange(value => {
       selectedBuilding.material.color.set(value);
       selectedBuilding.material.map = windowTexture;
-      selectedBuilding.material.needsUpdate = true;
       selectedBuilding.userData.textureURL = '';
+      selectedBuilding.material.needsUpdate = true;
     });
 
     textureCtrl = gui.add(buildingParams, 'textureURL').name('Custom Texture URL').onFinishChange(url => {
@@ -122,6 +126,7 @@ lightFolder.open();
 
 function animate() {
   requestAnimationFrame(animate);
+  controls.update();
   renderer.render(scene, camera);
 }
 animate();
