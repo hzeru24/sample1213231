@@ -2,45 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Three.js Skyscraper Editor</title>
+  <title>Skyscraper Editor</title>
   <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
+    #instructions {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.85);
+      padding: 12px;
+      font-family: sans-serif;
+      font-size: 13px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      max-width: 230px;
+      z-index: 100;
+    }
   </style>
 </head>
 <body>
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/controls/OrbitControls.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
-
-  <!-- ✅ Load script.js AFTER the DOM -->
-  <script>
-    window.onload = function () {
-      const script = document.createElement('script');
-      script.src = 'script.js';
-      document.body.appendChild(script);
-    };
-  </script>
-
-  <!-- ✅ Instructions panel -->
-  <div id="instructions" style="
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(255,255,255,0.85);
-    padding: 12px;
-    font-family: sans-serif;
-    font-size: 13px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    max-width: 230px;
-    z-index: 100;">
+  <div id="instructions">
     <strong>🧭 Controls Guide</strong><br><br>
     🖱️ Left-click + drag: Rotate view<br>
     🔍 Scroll: Zoom in/out<br>
     🖱️ Right-click + drag: Pan<br>
     📦 Click building: Edit height, color, texture<br>
   </div>
+
+  <!-- Load Three.js and OrbitControls using modules -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
+
+    // Make them globally accessible so script.js can use them
+    window.THREE = THREE;
+    window.OrbitControls = OrbitControls;
+
+    // Load main script after Three and OrbitControls are set
+    const script = document.createElement('script');
+    script.src = 'script.js';
+    document.body.appendChild(script);
+  </script>
+
+  <!-- dat.GUI for UI controls -->
+  <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
 </body>
 </html>
