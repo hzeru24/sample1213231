@@ -30,22 +30,10 @@
     📦 Click building: Edit height, color, texture<br>
   </div>
 
-  <!-- Load Three.js and OrbitControls using modules -->
-  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
+  <!-- ✅ Load script.js as ES Module -->
+  <script type="module" src="script.js"></script>
 
-    // Make them globally accessible so script.js can use them
-    window.THREE = THREE;
-    window.OrbitControls = OrbitControls;
-
-    // Load main script after Three and OrbitControls are set
-    const script = document.createElement('script');
-    script.src = 'script.js';
-    document.body.appendChild(script);
-  </script>
-
-  <!-- dat.GUI for UI controls -->
+  <!-- ✅ Load dat.GUI (still okay to use old way) -->
   <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
 </body>
 </html>
