@@ -2,22 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Interactive Parametric Skyscrapers</title>
+  <title>Three.js Skyscraper Editor</title>
   <style>
     body { margin: 0; overflow: hidden; }
     canvas { display: block; }
   </style>
 </head>
 <body>
-  <!-- Load Three.js, Controls, GUI -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155/examples/js/controls/OrbitControls.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/controls/OrbitControls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
-
-  <!-- Your script -->
   <script src="script.js"></script>
 
-  <!-- Instructions Panel -->
   <div id="instructions" style="
     position: fixed;
     top: 10px;
@@ -35,7 +31,6 @@
     🔍 Scroll: Zoom in/out<br>
     🖱️ Right-click + drag: Pan<br>
     📦 Click building: Edit height, color, texture<br>
-    🎨 Use panel at left to customize
   </div>
 </body>
 </html>
