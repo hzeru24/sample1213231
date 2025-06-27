@@ -3,9 +3,9 @@ import { FontLoader } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/
 import { TextGeometry } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/geometries/TextGeometry.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf0f0f0);
+scene.background = new THREE.Color(0xffffff); // white background
 
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
 let angle = 0;
 const radius = 50;
 
@@ -13,19 +13,30 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-scene.add(new THREE.DirectionalLight(0xffffff, 1).position.set(10, 20, 10));
+// Lighting
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(10, 20, 10);
+scene.add(light);
 scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
+// Load Font and Create 3D Text
 const loader = new FontLoader();
 loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', font => {
-  const geom = new TextGeometry('Misskonasiya', {
-    font, size: 5, height: 1, bevelEnabled: true,
-    bevelThickness: 0.5, bevelSize: 0.3, bevelSegments: 5
+  const geometry = new TextGeometry('Misskonasiya', {
+    font: font,
+    size: 5,
+    height: 1,
+    bevelEnabled: true,
+    bevelThickness: 0.3,
+    bevelSize: 0.2,
+    bevelSegments: 3
   });
-  geom.center();
 
-  const mesh = new THREE.Mesh(geom, new THREE.MeshStandardMaterial({ color: 0xfb06ff }));
-  scene.add(mesh);
+  geometry.center();
+
+  const material = new THREE.MeshStandardMaterial({ color: 0x800080 }); // purple color
+  const textMesh = new THREE.Mesh(geometry, material);
+  scene.add(textMesh);
 });
 
 function updateCamera() {
