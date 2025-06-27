@@ -13,47 +13,36 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(10, 20, 10);
-scene.add(light);
+scene.add(new THREE.DirectionalLight(0xffffff, 1).position.set(10, 20, 10));
 scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
 const loader = new FontLoader();
 loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', font => {
-  const geometry = new TextGeometry('Misskonasiya', {
-    font: font,
-    size: 5,
-    height: 1,
-    curveSegments: 12,
-    bevelEnabled: true,
-    bevelThickness: 0.5,
-    bevelSize: 0.3,
-    bevelSegments: 5
+  const geom = new TextGeometry('Misskonasiya', {
+    font, size: 5, height: 1, bevelEnabled: true,
+    bevelThickness: 0.5, bevelSize: 0.3, bevelSegments: 5
   });
+  geom.center();
 
-  geometry.center();
-
-  const material = new THREE.MeshStandardMaterial({ color: 0xfb06ff });
-  const textMesh = new THREE.Mesh(geometry, material);
-  textMesh.castShadow = true;
-  textMesh.receiveShadow = true;
-  scene.add(textMesh);
+  const mesh = new THREE.Mesh(geom, new THREE.MeshStandardMaterial({ color: 0xfb06ff }));
+  scene.add(mesh);
 });
 
-function updateCameraPosition() {
-  camera.position.x = radius * Math.cos(angle);
-  camera.position.z = radius * Math.sin(angle);
-  camera.position.y = 20;
+function updateCamera() {
+  camera.position.set(
+    radius * Math.cos(angle),
+    20,
+    radius * Math.sin(angle)
+  );
   camera.lookAt(0, 0, 0);
 }
+updateCamera();
 
 window.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') angle += 0.05;
-  if (e.key === 'ArrowLeft') angle -= 0.05;
-  updateCameraPosition();
+  if (e.key === 'ArrowLeft')  angle -= 0.05;
+  updateCamera();
 });
-
-updateCameraPosition();
 
 function animate() {
   requestAnimationFrame(animate);
